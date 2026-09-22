@@ -324,22 +324,91 @@ input.err { border-color: var(--red-bright) !important; box-shadow: 0 0 8px rgba
 .ep-name { color: #fff; font-weight: 600; }
 .ep-ticket { color: var(--green-bright); font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 1px; }
 
-/* DEMO BANNER */
-.demo-banner {
-  background: rgba(0,130,35,0.1); border: 1px solid rgba(0,130,35,0.3);
-  border-radius: 10px; padding: 10px 16px; font-size: 0.8rem; color: var(--green-bright);
-  margin: 14px 0 0; text-align: center; letter-spacing: 0.5px;
+/* FOOTER */
+.site-footer {
+  text-align: center; padding: 28px 16px 16px;
+  font-size: 0.72rem; color: #2a4a2a; letter-spacing: 0.5px;
+  font-family: 'Lato', sans-serif;
 }
+.site-footer a {
+  color: #3a6a3a; text-decoration: none;
+  transition: color 0.2s;
+}
+.site-footer a:hover { color: var(--green-bright); }
 
 /* NEON FLICKER */
 @keyframes flicker { 0%,94%,100%{opacity:1} 95%{opacity:.75} 97%{opacity:1} 99%{opacity:.55} }
 .flicker { animation: flicker 7s infinite; }
 
-@media(max-width:540px) {
-  .fgrid, .se-grid { grid-template-columns: 1fr; }
+/* ── Mobile: tablets and large phones ───────────────────────── */
+@media(max-width:600px) {
+  .wrap { padding: 0 12px 60px; }
+
+  /* Step bar */
+  .step-line { max-width: 40px; }
+  .step-lbl  { font-size: 0.55rem; letter-spacing: 0.5px; }
+  .step-dot  { width: 34px; height: 34px; font-size: 0.8rem; }
+
+  /* Card */
+  .card { padding: 22px 18px; border-radius: 14px; }
+  .card-h { font-size: 1rem; letter-spacing: 1px; }
+  .card-sub { font-size: 0.82rem; margin-bottom: 18px; }
+
+  /* Ticket selector */
+  .ticket-sel { gap: 16px; }
+  .qty-num { font-size: 3.6rem; }
+  .qty-btn  { width: 50px; height: 50px; font-size: 1.6rem; }
+
+  /* Total box */
+  .total-box { padding: 14px 28px; }
+  .total-amt { font-size: 2.2rem; }
+
+  /* Form grids → single column */
+  .fgrid, .se-grid { grid-template-columns: 1fr; gap: 12px; }
   .fgrid .full, .se-grid .full { grid-column: 1; }
-  .card { padding: 20px; }
-  .step-line { max-width: 36px; }
+
+  /* Inputs */
+  input { font-size: 1rem; padding: 13px 15px; }
+
+  /* Split entry */
+  .split-entry { padding: 14px 12px; }
+
+  /* Venmo block */
+  .venmo-box    { padding: 18px 16px; }
+  .venmo-handle { font-size: 1.5rem; }
+  .vi-step      { font-size: 0.85rem; }
+
+  /* Buttons */
+  .btn      { padding: 16px 20px; font-size: 0.85rem; }
+  .btn-back { padding: 12px 16px; font-size: 0.8rem; }
+
+  /* Entry preview rows */
+  .ep-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .ep-ticket { font-size: 0.7rem; }
+
+  /* Success screen */
+  .conf-box { padding: 18px; }
+  .success { padding: 24px 10px; }
+  .success-title { font-size: 2.4rem; }
+  .ticket-stub { padding: 16px 22px; }
+  .stub-num { font-size: 1.6rem; letter-spacing: 3px; }
+}
+
+/* ── Mobile: small phones (iPhone SE, Galaxy A series) ────── */
+@media(max-width:390px) {
+  .wrap { padding: 0 8px 60px; }
+  .card { padding: 18px 14px; }
+
+  .qty-num { font-size: 3rem; }
+  .qty-btn  { width: 46px; height: 46px; font-size: 1.4rem; }
+  .total-box { padding: 12px 18px; }
+  .total-amt { font-size: 2rem; }
+
+  .step-line { max-width: 28px; }
+  .step-lbl  { display: none; }   /* hide labels on tiny screens, dots still show */
+
+  .venmo-handle { font-size: 1.3rem; letter-spacing: 1px; }
+  .btn { padding: 15px 16px; }
 }
 
 /* Vegas floating background icons */
@@ -418,7 +487,6 @@ input.err { border-color: var(--red-bright) !important; box-shadow: 0 0 8px rgba
       <span style="font-size:1.3rem">🎄&nbsp;🎅&nbsp;🎄</span>
       <div class="holly-line"></div>
     </div>
-    <div class="demo-banner">🎰 DEMO MODE &mdash; Payment is simulated. No real charges will occur.</div>
   </div>
 
   <!-- STEPS -->
@@ -554,13 +622,16 @@ input.err { border-color: var(--red-bright) !important; box-shadow: 0 0 8px rgba
           <text x="0" y="18" font-family="Oswald,sans-serif" font-size="20" font-weight="700" fill="#008CFF" letter-spacing="1">VENMO</text>
         </svg>
       </div>
-      <div class="venmo-handle" id="venmoHandle">@BranAndJerm</div>
+      <div class="venmo-handle" id="venmoHandle">@brandonkahele</div>
       <div class="venmo-instructions">
-        <div class="vi-step"><span class="vi-num">1</span><span>Open Venmo and search <strong>@BranAndJerm</strong></span></div>
-        <div class="vi-step"><span class="vi-num">2</span><span>Send exactly <strong id="venmo-amt"></strong></span></div>
-        <div class="vi-step"><span class="vi-num">3</span><span>In the note write your <strong>confirmation number</strong> (shown after submitting)</span></div>
-        <div class="vi-step"><span class="vi-num">4</span><span>Hit <strong>Confirm Entry</strong> below — your spot is reserved</span></div>
+        <div class="vi-step"><span class="vi-num">1</span><span>Tap <strong>Open in Venmo</strong> below — amount &amp; note will prefill automatically</span></div>
+        <div class="vi-step"><span class="vi-num">2</span><span>Confirm the payment of <strong id="venmo-amt"></strong> in the Venmo app</span></div>
+        <div class="vi-step"><span class="vi-num">3</span><span>Come back here and tap <strong>Confirm Entry</strong> to lock in your spot</span></div>
       </div>
+      <a id="venmoLink" href="#" target="_blank" rel="noopener"
+         style="display:block;text-align:center;background:#008CFF;color:#fff;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;padding:14px 20px;border-radius:10px;text-decoration:none;margin-bottom:14px;box-shadow:0 0 20px rgba(0,140,255,0.35);">
+        📱 Open in Venmo
+      </a>
       <div class="venmo-note">⚠️ Entries are held for <strong>24 hours</strong> pending payment. Unpaid entries will be released.</div>
     </div>
     <button class="btn" id="payBtn" onclick="submitPayment()">✅ Confirm Entry</button>
@@ -592,6 +663,9 @@ let qty = 1;
 let splitEntries = [];   // [{id, tickets}]
 let splitCounter = 0;
 const PRICE = 25;
+
+// ── Paste your Google Apps Script Web App URL here after deploying ──
+const WEBHOOK_URL = '';
 
 const data = { qty:1, fn:'', ln:'', em:'', ph:'', addr:'', fb:'', splits:[] };
 
@@ -864,10 +938,23 @@ function buildReview() {
   if (va) va.textContent = amtStr;
 }
 
+let pendingConf = '';
+
 function go(n) {
   if (n === 3) {
     if (!validate2()) return;
     buildReview();
+  }
+  if (n === 4) {
+    // Generate conf number now so Venmo link can include it
+    pendingConf = 'HG' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    const amt   = (qty * PRICE).toFixed(2);
+    const note  = encodeURIComponent('Holiday Games Conf #' + pendingConf);
+    const deepLink = `venmo://paycharge?txn=pay&recipients=brandonkahele&amount=${amt}&note=${note}`;
+    const webLink  = `https://venmo.com/brandonkahele?txn=pay&amount=${amt}&note=${note}`;
+    // Use deep link on mobile, web fallback on desktop
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    document.getElementById('venmoLink').href = isMobile ? deepLink : webLink;
   }
   setStep(n);
 }
@@ -881,7 +968,7 @@ function submitPayment() {
 }
 
 function showSuccess() {
-  const conf = 'HG' + Math.random().toString(36).substr(2, 6).toUpperCase();
+  const conf = pendingConf || ('HG' + Math.random().toString(36).substr(2, 6).toUpperCase());
   document.getElementById('confNum').textContent   = conf;
   document.getElementById('confEmail').textContent = data.em;
 
@@ -943,6 +1030,18 @@ function showSuccess() {
   setStep('Success');
   console.log('SPREADSHEET ROWS (one per ticket):', sheetRows);
   console.log('Total paid:', '$' + (qty * PRICE).toFixed(2), '| Venmo conf note:', conf);
+
+  // ── Send to Google Sheets ──────────────────────────────────────
+  if (WEBHOOK_URL) {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ rows: sheetRows })
+    })
+    .then(r => r.json())
+    .then(res => console.log('Sheet response:', res))
+    .catch(err => console.warn('Sheet POST failed:', err));
+  }
 }
 
 const styleTag = document.createElement('style');
@@ -950,4 +1049,9 @@ styleTag.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(styleTag);
 </script>
 </body>
+
+<footer class="site-footer">
+  Designed by <a href="https://goraistrategies.com" target="_blank" rel="noopener">Gorai Strategies LLC</a>
+</footer>
+
 </html>
