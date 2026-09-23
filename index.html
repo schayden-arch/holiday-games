@@ -691,32 +691,32 @@ input.err { border-color: var(--red-bright) !important; box-shadow: 0 0 8px rgba
     <div class="fgrid">
       <div class="fgroup">
         <label class="flbl">First Name *</label>
-        <input type="text" id="fn" placeholder="Brandon">
+        <input type="text" id="fn">
         <div class="errtxt" id="e-fn"></div>
       </div>
       <div class="fgroup">
         <label class="flbl">Last Name *</label>
-        <input type="text" id="ln" placeholder="Kahele">
+        <input type="text" id="ln">
         <div class="errtxt" id="e-ln"></div>
       </div>
       <div class="fgroup full">
         <label class="flbl">Email Address *</label>
-        <input type="email" id="em" placeholder="you@email.com">
+        <input type="email" id="em">
         <div class="errtxt" id="e-em"></div>
       </div>
       <div class="fgroup full">
         <label class="flbl">Phone Number *</label>
-        <input type="tel" id="ph" placeholder="(702) 555-0100">
+        <input type="tel" id="ph">
         <div class="errtxt" id="e-ph"></div>
       </div>
       <div class="fgroup full">
         <label class="flbl">Mailing Address *</label>
-        <input type="text" id="addr" placeholder="123 Las Vegas Blvd, Las Vegas, NV 89101">
+        <input type="text" id="addr">
         <div class="errtxt" id="e-addr"></div>
       </div>
       <div class="fgroup full">
         <label class="flbl">Facebook Handle / Username</label>
-        <input type="text" id="fb" placeholder="@YourName (optional)">
+        <input type="text" id="fb">
       </div>
       <div class="fgroup full">
         <label class="chk-inline">
@@ -829,7 +829,7 @@ let splitCounter = 0;
 const PRICE = 15;
 
 // ── Paste your Google Apps Script Web App URL here after deploying ──
-const WEBHOOK_URL = '';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwFpkfSxd46bH4nTs4k2X3YyVhUYNoYgRru9J8VVHELj-kZVqr9J1J35OLUlmNeU78j/exec';
 
 const data = { qty:1, fn:'', ln:'', em:'', ph:'', addr:'', fb:'', splits:[] };
 
@@ -954,11 +954,11 @@ function addSplit() {
       <button class="rm-btn" onclick="removeSplit(${id})">Remove</button>
     </div>
     <div class="se-grid">
-      <div class="fgroup"><label class="flbl">First Name *</label><input type="text" id="sfn-${id}" placeholder="First"></div>
-      <div class="fgroup"><label class="flbl">Last Name *</label><input type="text" id="sln-${id}" placeholder="Last"></div>
-      <div class="fgroup full"><label class="flbl">Email *</label><input type="text" id="sem-${id}" placeholder="email@example.com"></div>
-      <div class="fgroup full"><label class="flbl">Phone</label><input type="text" id="sph-${id}" placeholder="(702) 555-0000"></div>
-      <div class="fgroup full"><label class="flbl">Facebook Handle</label><input type="text" id="sfb-${id}" placeholder="@Name (optional)"></div>
+      <div class="fgroup"><label class="flbl">First Name *</label><input type="text" id="sfn-${id}"></div>
+      <div class="fgroup"><label class="flbl">Last Name *</label><input type="text" id="sln-${id}"></div>
+      <div class="fgroup full"><label class="flbl">Email *</label><input type="text" id="sem-${id}"></div>
+      <div class="fgroup full"><label class="flbl">Phone</label><input type="text" id="sph-${id}"></div>
+      <div class="fgroup full"><label class="flbl">Facebook Handle</label><input type="text" id="sfb-${id}"></div>
       <div class="fgroup full">
         <label class="chk-inline" style="display:flex;align-items:center;">
           <input type="checkbox" id="su21-${id}" style="width:18px;height:18px;accent-color:var(--red-bright);cursor:pointer;flex-shrink:0;">
@@ -1205,12 +1205,14 @@ function showSuccess() {
   if (WEBHOOK_URL) {
     fetch(WEBHOOK_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ rows: sheetRows })
     })
-    .then(r => r.json())
-    .then(res => console.log('Sheet response:', res))
+    .then(() => console.log('Sheet POST sent (no-cors — response not readable, but data delivered)'))
     .catch(err => console.warn('Sheet POST failed:', err));
+  } else {
+    console.warn('WEBHOOK_URL is empty — sheet not updated. Paste your Apps Script URL into const WEBHOOK_URL.');
   }
 }
 
